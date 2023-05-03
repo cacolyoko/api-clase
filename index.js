@@ -2,6 +2,11 @@ const express = require("express");
 
 const servidor = express();
 
+servidor.use((peticion, respuesta, siguiente) => {
+    respuesta.header("Access-Control-Allow-Origin", "*");
+    siguiente();
+});
+
 servidor.get("/", (peticion, respuesta) => {
     let [r, g, b] = [0, 0, 0].map(() => Math.floor(Math.random() * 256));
     respuesta.json({r, g, b});
